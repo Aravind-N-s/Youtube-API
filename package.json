@@ -1,0 +1,43 @@
+{
+  "name": "youtube-api",
+  "version": "1.0.0",
+  "description": "Youtube-API Testing and Dockerizing ",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aravind-N-s/Youtube-API.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aravind-N-s/Youtube-API/issues"
+  },
+  "homepage": "https://github.com/Aravind-N-s/Youtube-API#readme",
+  "dependencies": {
+    "@log4js-node/logstash-http": "^1.1.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.6.0",
+    "express": "^4.17.1",
+    "http-status-codes": "^1.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "log4js": "^6.3.0",
+    "mongoose": "^5.13.2",
+    "mongoose-unique-validator": "^2.0.3",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "validator": "^11.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "concurrently": "^5.3.0",
+    "jsdoc": "^3.6.7",
+    "mocha": "^8.4.0",
+    "nodemon": "^2.0.9"
+  }
+}
