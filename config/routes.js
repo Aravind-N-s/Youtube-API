@@ -49,4 +49,19 @@ router.post(
   passport.authenticate("local", { session: false }),
   usercontroller.login
 );
+
+/**
+ * Route logining user with email, password
+ * @name /user/login
+ * @function
+ * @memberof module:user/routes~usersRouter
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware.
+ */
+router.get(
+  "/logout",
+  passport.authenticate("jwt", { session: false }),
+  usercontroller.logout
+);
 module.exports = router;

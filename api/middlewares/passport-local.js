@@ -46,10 +46,10 @@ const options = {
 passport.use(
   new LocalStrategy(options, async (email, password, done) => {
     // Fetch User By Email
-    const user = User.findOne({ email });
-    if (!user) return done(null, false, { message: USER_NOT_FOUND });
-    const validate = bcryptjs.compare(password, user.password);
-    if (!validate) return done(null, false, { message: { result: "WOOP" } });
+    const user = await User.findOne({ email });
+    if (!user) return done(null, false, { message: "USER_NOT_FOUND" });
+    const validate = await bcryptjs.compare(password, user.password);
+    if (!validate) return done(null, false, { message: "WOOP" });
     return done(null, user, {
       message: { result: "Data" },
     });
