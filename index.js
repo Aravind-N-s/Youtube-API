@@ -49,6 +49,48 @@ const http = require("http").createServer(app);
 
 const port = process.env.PORT;
 
+/**
+ * Passport.js as an authentication middleware.
+ * @const
+ */
+const passport = require("passport");
+const router = require("./config/routes");
+
+/**
+ * Initializing Passport
+ * @function
+ * @name use
+ * @memberof module:server/app~appServer
+ * @inner
+ * @param {method} initialize - Midddleware
+ */
+app.use(passport.initialize());
+
+require("./api/middlewares/passport-local");
+
+require("./api/middlewares/passport-jwt");
+
+/**
+ * Serving Routes
+ * @function
+ * @name use
+ * @memberof module:server/app~appServer
+ * @inner
+ * @param {string} root - Root Route
+ * @param {object} router - Express Router
+ */
+app.use("/", router);
+
+/**
+ * Routes for hosting.
+ * @function
+ * @name use
+ * @memberof module:server/app~appServer
+ * @inner
+ * @param {function} root - Root Route
+ * @param {object} router - Express Router
+ */
+
 app.listen(port, () => {
   consoleLogger.info(`Express Connected at port : ${port}`);
 });
