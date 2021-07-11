@@ -1,20 +1,41 @@
+require("dotenv").config();
+const order = Date.now();
 const axios = require("axios");
-(async () => {
+const { Request } = require("../api/models/Request");
+
+const { logger } = require("../config/logger");
+
+const fetchYoutubeSearchSpoilers = async () => {
   try {
-    const data = await axios.get(
+    logger.info(order);
+    const { data } = await axios.get(
       "https://www.googleapis.com/youtube/v3/search",
       {
         params: {
-          keys: process.env.YOUTUBE_KEY,
+          maxResults: 10,
+          key: process.env.YOUTUBE_KEY,
+          part: "snippet",
+          order: "date",
           type: "video",
-          // order= Date.now(),
-          // publishedAfter= Date.now(),
-          q: "cricket",
+          publishedAfter: "2020-10-01T00:00:00Z",
+          q: process.env.QUERY,
         },
-      }
+      },
     );
-    console.log({ data });
+    data.items.forEach(async (items) => {
+      const payload = {
+        etag: items.etag,
+        title: items.snippet.title,
+        description: items.snippet.description,
+        publishTime: items.snippet.publishTime,
+        defaultThumbnail: items.snippet.thumbnails.default.url,
+      };
+      const add = await Request.findOne({ etag: items.etag });
+      if (!add) await Request.create({ ...payload });
+    });
   } catch (err) {
-    console.log({ err });
+    logger.error(err);
   }
-})();
+};
+
+module.exports = fetchYoutubeSearchSpoilers;

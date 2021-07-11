@@ -19,7 +19,7 @@ const jwt = require("jsonwebtoken");
  * Mongoose Model for User.
  * @const
  */
-const { User } = require("../models/user");
+const { User } = require("../models/User");
 /**
  * Constants enumerating the HTTP status codes.
  * @const

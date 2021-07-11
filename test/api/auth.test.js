@@ -1,6 +1,8 @@
-const { chaiServer, post, token } = require("../lifecycle.test");
+const { authenticate, chaiServer, token } = require("../lifecycle.test");
 
-describe("UserController", () => {
+describe("Authentication - User Controller", () => {
+  after(authenticate);
+
   it("Trying to Register with invalid email", (done) => {
     chaiServer
       .post("/users/register")
@@ -12,12 +14,12 @@ describe("UserController", () => {
       })
       .end((err, { body, statusCode }) => {
         body.should.be.a("object");
-        statusCode.should.equal(401);
+        statusCode.should.equal(406);
         done();
       });
   });
 
-  it("Trying to Register with ", (done) => {
+  it("Trying to Register with short password", (done) => {
     chaiServer
       .post("/users/register")
       .send({
@@ -28,12 +30,12 @@ describe("UserController", () => {
       })
       .end((err, { body, statusCode }) => {
         body.should.be.a("object");
-        statusCode.should.equal(401);
+        statusCode.should.equal(406);
         done();
       });
   });
 
-  it("Get stream details", (done) => {
+  it("Registering a registered user", (done) => {
     chaiServer
       .post("/users/register")
       .send({
@@ -44,12 +46,12 @@ describe("UserController", () => {
       })
       .end((err, { body, statusCode }) => {
         body.should.be.a("object");
-        statusCode.should.equal(401);
+        statusCode.should.equal(406);
         done();
       });
   });
 
-  it("Get stream details", (done) => {
+  it("Trying to login without correct password", (done) => {
     chaiServer
       .post("/users/login")
       .send({
@@ -64,7 +66,7 @@ describe("UserController", () => {
       });
   });
 
-  it("Get stream details", (done) => {
+  it("Login with correct credentials", (done) => {
     chaiServer
       .post("/users/login")
       .send({
@@ -73,7 +75,8 @@ describe("UserController", () => {
       })
       .end((err, { body, statusCode }) => {
         body.should.be.a("object");
-        statusCode.should.equal(401);
+        statusCode.should.equal(200);
+        token.setUserToken = body.token;
         done();
       });
   });

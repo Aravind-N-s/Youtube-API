@@ -26,6 +26,12 @@ const passport = require("passport");
 const usercontroller = require("../api/controllers/userController");
 
 /**
+ * Controller Methods responsible for Requests
+ * @const
+ */
+const requestController = require("../api/controllers/requestController");
+
+/**
  * Route registeing user with email, password, user name
  * @name /user/register
  * @function
@@ -35,6 +41,7 @@ const usercontroller = require("../api/controllers/userController");
  * @param {callback} middleware - Express middleware.
  */
 router.post("/users/register", usercontroller.register);
+
 /**
  * Route logining user with email, password
  * @name /user/login
@@ -47,12 +54,41 @@ router.post("/users/register", usercontroller.register);
 router.post(
   "/users/login",
   passport.authenticate("local", { session: false }),
-  usercontroller.login
+  usercontroller.login,
 );
 
 /**
- * Route logining user with email, password
- * @name /user/login
+ * Route to get search
+ * @name /api/search
+ * @function
+ * @memberof module:user/routes~usersRouter
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware.
+ */
+router.get(
+  "/api/search",
+  passport.authenticate("jwt", { session: false }),
+  requestController.searchRequest,
+);
+
+/**
+ * Route to get dashboard
+ * @name /api/dashboard
+ * @function
+ * @memberof module:user/routes~usersRouter
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware.
+ */
+router.get(
+  "/api/dashboard",
+  passport.authenticate("jwt", { session: false }),
+  requestController.dashboard,
+);
+/**
+ * Route logging out user
+ * @name /user/logout
  * @function
  * @memberof module:user/routes~usersRouter
  * @inner
@@ -62,6 +98,6 @@ router.post(
 router.get(
   "/logout",
   passport.authenticate("jwt", { session: false }),
-  usercontroller.logout
+  usercontroller.logout,
 );
 module.exports = router;

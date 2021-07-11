@@ -32,44 +32,47 @@ const uniqueValidator = require("mongoose-unique-validator");
  */
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-  firstName: {
-    type: String,
-    minlength: 5,
-  },
-  lastName: {
-    type: String,
-  },
-  name: {
-    type: String,
-    default: function () {
-      return `${this.firstName || ""} ${this.lastName || ""}`.trim();
+const userSchema = new Schema(
+  {
+    firstName: {
+      type: String,
+      minlength: 5,
     },
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    validate: {
-      validator: function (value) {
-        return validator.isEmail(value);
-      },
-      message: function () {
-        return "Invalid Email Format.";
+    lastName: {
+      type: String,
+    },
+    name: {
+      type: String,
+      default: function () {
+        return `${this.firstName || ""} ${this.lastName || ""}`.trim();
       },
     },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      validate: {
+        validator: function (value) {
+          return validator.isEmail(value);
+        },
+        message: function () {
+          return "Invalid Email Format.";
+        },
+      },
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 6,
+      maxlength: 128,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+    },
   },
-  password: {
-    type: String,
-    required: true,
-    minlength: 6,
-    maxlength: 128,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-  },
-});
+  { collection: "User" },
+);
 
 /**
  * Pre Middleware hook for save

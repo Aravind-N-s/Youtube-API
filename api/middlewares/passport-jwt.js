@@ -16,7 +16,7 @@ const passport = require("passport");
  * Mongoose Model for User.
  * @const
  */
-const { User } = require("../models/user");
+const { User } = require("../models/User");
 /**
  * Requiring JWTStrategy from passport
  * @const
@@ -56,5 +56,5 @@ passport.use(
     await User.findById({ _id: jwtPayload._id }).then((user) => {
       return done(null, user);
     });
-  })
+  }),
 );

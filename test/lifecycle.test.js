@@ -8,21 +8,15 @@ chai.should();
 chai.use(chaiHttp);
 chai.use(chaiJsonSchema);
 
-const chaiServer = chai.request.agent(process.env.PORT);
+const chaiServer = chai.request.agent(process.env.HOST);
+
 const token = {
-  token: "",
+  tokenId: "",
   set setUserToken(value) {
-    this.token = value;
+    this.tokenId = value;
   },
   get jwtToken() {
-    return `token=JWT ${this.token}`;
-  },
-};
-
-const setting = {
-  org: "",
-  set orgId(value) {
-    this.org = value;
+    return `JWT ${this.tokenId}`;
   },
 };
 
@@ -41,20 +35,16 @@ const del = (url = "/", body = {}) =>
   // eslint-disable-next-line no-return-await
   chaiServer.delete(url).set("Authorization", token.jwtToken).send(body);
 
-const authenticate = async (resolve, reject) => {
+const authenticate = async () => {
   try {
-    const data = await chaiServer.post("/users/login").send({
+    const { body } = await chaiServer.post("/users/login").send({
       email: process.env.EMAIL,
       password: process.env.PASSWORD,
     });
-    console.log({ data });
-    token.setUserToken = data.token;
-    setting.orgId = data.org;
-    resolve();
+    token.setUserToken = body.token;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log({ err });
-    reject();
     process.exit(1);
   }
 };
@@ -73,5 +63,4 @@ module.exports = {
   patch,
   del,
   token,
-  setting,
 };

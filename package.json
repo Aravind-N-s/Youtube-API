@@ -4,7 +4,7 @@
   "description": "Youtube-API Testing and Dockerizing ",
   "main": "index.js",
   "scripts": {
-    "start": "npm start",
+    "start": "node index.js",
     "test": "NODE_ENV=test mocha test/api/*.test.js --exit"
   },
   "repository": {

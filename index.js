@@ -19,14 +19,12 @@ const { mongoose } = require("./config/database");
  */
 const express = require("express");
 const { consoleLogger } = require("./config/logger");
-const HttpStatus = require("http-status-codes");
 /**
  * CORS is a Node.JS package for providing a Connect/Express middleware that can be used to enable CORS
  * @const
  */
 const cors = require("cors");
 const app = express();
-const path = require("path");
 /**
  * Cross Origin Resource Sharing (CORS) allows us to use Web applications within browsers when domains aren't the same
  * @function
@@ -45,8 +43,6 @@ app.use(cors());
  * @param {method} express.json - Enable express to send json valie in our application
  */
 app.use(express.json());
-const http = require("http").createServer(app);
-
 const port = process.env.PORT;
 
 /**
@@ -65,10 +61,24 @@ const router = require("./config/routes");
  * @param {method} initialize - Midddleware
  */
 app.use(passport.initialize());
-
 require("./api/middlewares/passport-local");
-
 require("./api/middlewares/passport-jwt");
+
+/**
+ * Routes for search api.
+ * @function
+ * @name use
+ * @inner
+ */
+const asyncYoutubeSearchAPI = require("./utils/search-api");
+
+/**
+ * Calling Async Youtube Search.
+ * @function
+ * @name use
+ * @inner
+ */
+setInterval(asyncYoutubeSearchAPI, 1000);
 
 /**
  * Serving Routes

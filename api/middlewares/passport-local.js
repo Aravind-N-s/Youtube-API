@@ -20,7 +20,7 @@ const LocalStrategy = require("passport-local").Strategy;
  * Mongoose Model for User.
  * @const
  */
-const { User } = require("../models/user");
+const { User } = require("../models/User");
 /**
  * A library to hash tthe password.
  * @const
@@ -53,5 +53,5 @@ passport.use(
     return done(null, user, {
       message: { result: "Data" },
     });
-  })
+  }),
 );
