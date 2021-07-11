@@ -46,6 +46,22 @@ describe("Authentication - User Controller", () => {
       })
       .end((err, { body, statusCode }) => {
         body.should.be.a("object");
+        statusCode.should.equal(200);
+        done();
+      });
+  });
+
+  it("Registering a registered user", (done) => {
+    chaiServer
+      .post("/users/register")
+      .send({
+        firstName: "Admin",
+        lastName: "1",
+        email: process.env.EMAIL,
+        password: process.env.PASSWORD,
+      })
+      .end((err, { body, statusCode }) => {
+        body.should.be.a("object");
         statusCode.should.equal(406);
         done();
       });

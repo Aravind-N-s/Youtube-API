@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "doc": "jsdoc -c ./.jsdoc.conf.json",
     "test": "NODE_ENV=test mocha test/api/*.test.js --exit"
   },
   "repository": {
