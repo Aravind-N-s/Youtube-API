@@ -1,0 +1,14 @@
+.git
+.cache
+.vscode
+.idea
+.jsdoc.conf.json
+**/*.test.js
+log-*
+*.md
+./test
+utils/env.js
+.dockerignore
+package-lock.json
+.gitignore
+node_modules
