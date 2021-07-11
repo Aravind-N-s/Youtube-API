@@ -5,6 +5,7 @@ const { Request } = require("../api/models/Request");
 
 const { logger } = require("../config/logger");
 
+const query = process.env.QUERY || "cricket";
 const fetchYoutubeSearchSpoilers = async () => {
   try {
     logger.info(order);
@@ -18,9 +19,9 @@ const fetchYoutubeSearchSpoilers = async () => {
           order: "date",
           type: "video",
           publishedAfter: "2020-10-01T00:00:00Z",
-          q: process.env.QUERY,
+          q: query,
         },
-      },
+      }
     );
     data.items.forEach(async (items) => {
       const payload = {
