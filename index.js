@@ -91,6 +91,8 @@ app.use("/", router);
  * @param {object} router - Express Router
  */
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   consoleLogger.info(`Express Connected at port : ${port}`);
 });
+
+module.exports = server;
