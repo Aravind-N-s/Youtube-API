@@ -46,7 +46,7 @@ Following which please run the Application with
 ```npm
 npm run start
 ```
-Subsequently run the following commands for the output of the test cases
+Subsequently, run the following commands for the output of the test cases
 ```npm
 npm run test
 ```
@@ -65,10 +65,10 @@ On successful build use the below command to run the container on the local syst
 docker run -p 9000:90000 -it youtube-api-project
 ```
 
-- Please find the project hosted at 
+### Please find the project hosted at 
 ```
 https://youtube-app-project.herokuapp.com/
 ```
-for your convinence and also the postman collections as well
+for your convenience and also the postman collections as well
 
 Thank You
