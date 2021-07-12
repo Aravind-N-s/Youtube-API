@@ -25,7 +25,7 @@ YOUTUBE_KEY=<Your KEY>
 
 ##### At the root folder run the following command to launch the project
 ```npm
-npm run dev
+npm run start
 ```
 ##### To view API Documentation, Make Sure the .jsdoc config file exists then run the following command
 ```npm
@@ -62,7 +62,7 @@ docker images build . -t youtube-api-project
 ```
 On successful build use the below command to run the container on the local system
 ```npm
-docker run -p 9000:90000 -it youtube-api-project
+docker run -p 9000:9000 -it youtube-api-project
 ```
 
 ### Please find the project hosted at 
